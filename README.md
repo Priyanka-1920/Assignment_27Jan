@@ -319,6 +319,33 @@ This project helped in understanding:
 - Kubernetes troubleshooting
 - DevOps automation
 
+
+## Jenkins Kubernetes Connectivity Issue
+
+### Issue
+
+Jenkins pipeline was unable to connect to Docker Desktop Kubernetes cluster because kubeconfig server endpoint used localhost:
+
+```bash
+https://127.0.0.1:50261
+```
+
+Since Jenkins runs in a separate runtime environment, localhost referred to the Jenkins server itself instead of the host machine Kubernetes cluster.
+
+### Resolution Approach
+
+- Configured kubeconfig as Jenkins Secret Text credential
+- Injected kubeconfig dynamically during deployment stage
+- Successfully authenticated kubeconfig structure
+- Deployment logic validated successfully
+
+This issue is specific to local Docker Desktop Kubernetes networking and would typically be resolved in production using:
+- EKS
+- AKS
+- GKE
+- Remote Kubernetes cluster
+- Shared Jenkins agents
+
 ---
 
 # Author
